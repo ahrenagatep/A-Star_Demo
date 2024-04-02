@@ -9,3 +9,6 @@ A Java-based project that demonstrates the A* search algorithm for pathfinding i
 # How to use:
 * Press enter to see each step of the algorithm solve the problem
 * That's literally it, press enter
+
+# Credits
+* Developed by Ahren Agatep   
