@@ -91,10 +91,6 @@ public class Demo extends JPanel {
         setSolidNode(8,7);
         setSolidNode(8,8);
         setSolidNode(9,8);
-
-        // SET COST
-        setCostOnNodes();
-
     }
     private void setStartNode(int col, int row){
         node[col][row].setAsStart();
@@ -107,37 +103,6 @@ public class Demo extends JPanel {
     }
     private void setSolidNode(int col, int row){
         node[col][row].setAsSolid();
-    }
-    private void setCostOnNodes(){
-        int col = 0;
-        int row = 0;
-        while(col < maxColumns && row < maxRows){
-            getCost(node[col][row]);
-            col++;
-            if(col == maxColumns){
-                col = 0;
-                row++;
-            }
-        }
-    }
-    private void getCost(Node node){
-        // GET G COST (Dist. from start node)
-        int xDistance = Math.abs(node.col - startNode.col);
-        int yDistance = Math.abs(node.row - startNode.row);
-        node.gCost = xDistance + yDistance;
-
-        // GET H COST (Dist. from goal node)
-        xDistance = Math.abs(node.col - goalNode.col);
-        yDistance = Math.abs(node.row - goalNode.row);
-        node.hCost = xDistance + yDistance;
-
-        // GET F COST (Total cost)
-        node.fCost = node.gCost + node.hCost;
-
-        // DISPLAY COST ON NODE
-        if(node != startNode && node != goalNode){
-            node.setText("<html>F:"+node.fCost+"<br>G:"+node.gCost+"<html>");
-        }
     }
     public void autoSearch(){
         while(goalReached == false && step < 300){
