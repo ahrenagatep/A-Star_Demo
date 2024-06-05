@@ -32,7 +32,6 @@ public class Node extends JButton implements ActionListener{
     public void setAsGoal(){
         setBackground(Color.yellow);
         setForeground(Color.black);
-//        setText("GOAL");
         goal = true;
     }
     public void setAsSolid(){
@@ -52,9 +51,21 @@ public class Node extends JButton implements ActionListener{
         setBackground(Color.green);
         setForeground(Color.black);
     }
+    public void paintAsOpen(){
+        setBackground(Color.white);
+        setForeground(Color.black);
+        open = true;
+    }
     @Override
     public void actionPerformed(ActionEvent e){
-        setAsSolid();
+        System.out.println(solid);
+        if (!solid){
+            setAsSolid();
+            solid = true;
+        }else{
+            paintAsOpen();
+            solid = false;
+        }
         demo.requestFocusInWindow();
     }
     public void reset() {

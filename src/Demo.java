@@ -45,51 +45,6 @@ public class Demo extends JPanel {
         // SET START AND GOAL NODE
         setStartNode(0, 9);
         setGoalNode(14, 0);
-
-        // PLACE SOLID NODES
-//        setSolidNode(1, 1);
-//        setSolidNode(2, 1);
-//        setSolidNode(3, 1);
-//        setSolidNode(4, 1);
-//        setSolidNode(5, 1);
-//        setSolidNode(6, 1);
-//        setSolidNode(7, 1);
-//        setSolidNode(8, 1);
-//        setSolidNode(9, 1);
-//        setSolidNode(10, 1);
-//        setSolidNode(10, 0);
-//        setSolidNode(10, 2);
-//        setSolidNode(10, 3);
-//        setSolidNode(10, 4);
-//        setSolidNode(10, 5);
-//        setSolidNode(10, 6);
-//        setSolidNode(10, 7);
-//        setSolidNode(10, 8);
-//        setSolidNode(11, 8);
-//        setSolidNode(12, 8);
-//        setSolidNode(13, 8);
-//
-//        setSolidNode(6, 3);
-//        setSolidNode(7, 3);
-//        setSolidNode(8, 3);
-//        setSolidNode(6, 4);
-//        setSolidNode(6, 5);
-//        setSolidNode(6, 6);
-//        setSolidNode(6, 7);
-//        setSolidNode(6, 8);
-//        setSolidNode(6, 9);
-//
-//        setSolidNode(0, 8);
-//        setSolidNode(1, 8);
-//        setSolidNode(2, 8);
-//        setSolidNode(3, 8);
-//        setSolidNode(4, 8);
-//
-//        setSolidNode(8, 5);
-//        setSolidNode(8, 6);
-//        setSolidNode(8, 7);
-//        setSolidNode(8, 8);
-//        setSolidNode(9, 8);
     }
 
     private void setStartNode(int col, int row) {
