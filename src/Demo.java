@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.awt.event.*;
 
 public class Demo extends JPanel {
     // SCREEN SETTINGS
@@ -16,6 +15,7 @@ public class Demo extends JPanel {
     Node startNode, goalNode, currentNode;
     ArrayList<Node> openList = new ArrayList<>();
     ArrayList<Node> checkedList = new ArrayList<>();
+    ArrayList<Node> pathList = new ArrayList<>();
 
     // OTHERS
     boolean goalReached = false;
@@ -59,6 +59,7 @@ public class Demo extends JPanel {
     public void autoSearch() {
         goalReached = false;
         step = 0;
+        pathList.clear();
         for (int i = 0; i < node.length; i++) {
             Node[] nodes = node[i];
             for (int j = 0; j < nodes.length; j++) {
@@ -112,31 +113,38 @@ public class Demo extends JPanel {
             }
 
             // FIND BEST NODE (most optimal!)
-            int bestNodeIndex = 0;
-            int bestNodefCost = 999;
+            if (!openList.isEmpty()) {
+                int bestNodeIndex = 0;
+                int bestNodefCost = 999;
 
-            for (int i = 0; i < openList.size(); i++) {
-                // Check if this node's F cost is better
-                if (openList.get(i).fCost < bestNodefCost) {
-                    bestNodeIndex = i;
-                    bestNodefCost = openList.get(i).fCost;
-                }
-                // If F cost is equal, check G cost
-                else if (openList.get(i).fCost == bestNodefCost) {
-                    if (openList.get(i).gCost < openList.get(bestNodeIndex).gCost) {
+                for (int i = 0; i < openList.size(); i++) {
+                    // Check if this node's F cost is better
+                    if (openList.get(i).fCost < bestNodefCost) {
                         bestNodeIndex = i;
+                        bestNodefCost = openList.get(i).fCost;
+                    }
+                    // If F cost is equal, check G cost
+                    else if (openList.get(i).fCost == bestNodefCost) {
+                        if (openList.get(i).gCost < openList.get(bestNodeIndex).gCost) {
+                            bestNodeIndex = i;
+                        }
                     }
                 }
-            }
-            // After loop, get best node
-            currentNode = openList.get(bestNodeIndex);
-            if (currentNode == goalNode) {
-                goalReached = true;
-                trackPath();
+                // After loop, get best node
+                currentNode = openList.get(bestNodeIndex);
+                if (currentNode == goalNode) {
+                    goalReached = true;
+                    trackPath();
+                }
             }
             step++;
         }
-        System.out.println("Nodes checked: "+step);
+        if (goalReached) {
+            System.out.println("Goal reached in " + pathList.size() + " steps.");
+        } else {
+            System.out.println("No path found to the goal node.");
+            JOptionPane.showMessageDialog(null,"No path to the goal was found.");
+        }
     }
     public void manualSearch() {
         if (!goalReached) {
@@ -220,7 +228,14 @@ public class Demo extends JPanel {
             current = current.parent;
             if (current != startNode) {
                 current.setAsPath();
+                pathList.add(current);
             }
         }
+        for (Node node : pathList){
+            System.out.println("("+node.row+" , "+node.col+")");
+        }
+    }
+    private void walkPath() {
+
     }
 }

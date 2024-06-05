@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 public class Node extends JButton implements ActionListener{
+    Color customRed = new Color(244, 91, 105);
+    Color customBlue = new Color(45, 125, 210);
+    Color customGreen = new Color(98, 195, 112);
+    Color customYellow = new Color(250, 169, 22);
+    Color customWhite = new Color(251, 255, 254);
+    Color customBlack = new Color(25, 25, 25);
     Node parent;
     int col;
     int row;
@@ -19,23 +25,23 @@ public class Node extends JButton implements ActionListener{
         this.row = row;
         this.demo = demo;
 
-        setBackground(Color.white);
+        setBackground(customWhite);
         setForeground(Color.black);
         addActionListener(this);
     }
     public void setAsStart(){
-        setBackground(Color.blue);
+        setBackground(customGreen);
         setForeground(Color.white);
 //        setText("START");
         start = true;
     }
     public void setAsGoal(){
-        setBackground(Color.yellow);
+        setBackground(customRed);
         setForeground(Color.black);
         goal = true;
     }
     public void setAsSolid(){
-        setBackground(Color.black);
+        setBackground(customBlack);
         setForeground(Color.black);
         solid = true;
     }
@@ -48,22 +54,27 @@ public class Node extends JButton implements ActionListener{
         }
     }
     public void setAsPath(){
-        setBackground(Color.green);
+        setBackground(customBlue);
         setForeground(Color.black);
     }
     public void paintAsOpen(){
-        setBackground(Color.white);
+        setBackground(customWhite);
         setForeground(Color.black);
         open = true;
+    }
+    public void paintAsComputer(){
+        setBackground(customYellow);
     }
     @Override
     public void actionPerformed(ActionEvent e){
         if (!solid){
             setAsSolid();
             solid = true;
+            demo.autoSearch();
         }else{
             paintAsOpen();
             solid = false;
+            demo.autoSearch();
         }
         demo.requestFocusInWindow();
     }
