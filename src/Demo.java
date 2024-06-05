@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.*;
 
 public class Demo extends JPanel {
     // SCREEN SETTINGS
-    final int maxColumns = 15;
-    final int maxRows = 10;
-    final int nodeSize = 70; // PIXELS?
+    final int maxColumns = 20;
+    final int maxRows = 20;
+    final int nodeSize = 40; // PIXELS.
     final int screenWidth = nodeSize * maxColumns;
     final int screenHeight = nodeSize * maxRows;
 
@@ -26,7 +27,6 @@ public class Demo extends JPanel {
         this.setLayout(new GridLayout(maxRows, maxColumns));
         this.addKeyListener(new KeyHandler(this));
         this.setFocusable(true);
-
         // PLACE NODES
         int col = 0;
         int row = 0;
@@ -43,10 +43,9 @@ public class Demo extends JPanel {
 
         // col = x ; row = y ; starting from top left corner (0,0)
         // SET START AND GOAL NODE
-        setStartNode(0, 9);
-        setGoalNode(14, 0);
+        setStartNode(0, 19);
+        setGoalNode(19, 0);
     }
-
     private void setStartNode(int col, int row) {
         node[col][row].setAsStart();
         startNode = node[col][row];
@@ -57,11 +56,6 @@ public class Demo extends JPanel {
         node[col][row].setAsGoal();
         goalNode = node[col][row];
     }
-
-    private void setSolidNode(int col, int row) {
-        node[col][row].setAsSolid();
-    }
-
     public void autoSearch() {
         goalReached = false;
         step = 0;
@@ -76,11 +70,11 @@ public class Demo extends JPanel {
         checkedList.clear();
         currentNode = startNode;
 
-        while (!goalReached && step < 500) {
+        while (!goalReached && step < 9999) {
             int col = currentNode.col;
             int row = currentNode.row;
 
-            currentNode.setAsChecked();
+//            currentNode.setAsChecked();
             checkedList.add(currentNode);
             openList.remove(currentNode);
 
@@ -99,6 +93,22 @@ public class Demo extends JPanel {
             // OPEN RIGHT NODE
             if (col + 1 < maxColumns) {
                 openNode(node[col + 1][row]);
+            }
+            // OPEN UP-RIGHT DIAGONAL NODE
+            if (row - 1 >= 0 && col + 1 < maxColumns) {
+                openNode(node[col + 1][row - 1]);
+            }
+            // OPEN DOWN-RIGHT DIAGONAL NODE
+            if (row + 1 < maxRows && col + 1 < maxColumns) {
+                openNode(node[col + 1][row + 1]);
+            }
+            // OPEN UP-LEFT DIAGONAL NODE
+            if (row - 1 >= 0 && col - 1 >= 0) {
+                openNode(node[col - 1][row - 1]);
+            }
+            // OPEN DOWN-LEFT DIAGONAL NODE
+            if (row + 1 < maxRows && col - 1 >= 0) {
+                openNode(node[col - 1][row + 1]);
             }
 
             // FIND BEST NODE (most optimal!)
@@ -126,6 +136,7 @@ public class Demo extends JPanel {
             }
             step++;
         }
+        System.out.println("Nodes checked: "+step);
     }
     public void manualSearch() {
         if (!goalReached) {
@@ -152,6 +163,23 @@ public class Demo extends JPanel {
             if (col + 1 < maxColumns) {
                 openNode(node[col + 1][row]);
             }
+            // OPEN UP-RIGHT DIAGONAL NODE
+            if (row - 1 >= 0 && col + 1 < maxColumns) {
+                openNode(node[col + 1][row - 1]);
+            }
+            // OPEN DOWN-RIGHT DIAGONAL NODE
+            if (row + 1 < maxRows && col + 1 < maxColumns) {
+                openNode(node[col + 1][row + 1]);
+            }
+            // OPEN UP-LEFT DIAGONAL NODE
+            if (row - 1 >= 0 && col - 1 >= 0) {
+                openNode(node[col - 1][row - 1]);
+            }
+            // OPEN DOWN-LEFT DIAGONAL NODE
+            if (row + 1 < maxRows && col - 1 >= 0) {
+                openNode(node[col - 1][row + 1]);
+            }
+
             // FIND BEST NODE (most optimal!)
             int bestNodeIndex = 0;
             int bestNodefCost = 999;
