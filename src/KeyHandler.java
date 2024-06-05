@@ -13,8 +13,9 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e){
         int code = e.getKeyCode();
         if(code == KeyEvent.VK_ENTER){
-//            dp.manualSearch();
             dp.autoSearch();
+        } else if (code == KeyEvent.VK_E) {
+            dp.manualSearch();
         }
     }
     @Override

@@ -13,9 +13,11 @@ public class Node extends JButton implements ActionListener{
     boolean solid;
     boolean open;
     boolean checked;
-    public Node(int col, int row){
+    Demo demo;
+    public Node(int col, int row, Demo demo){
         this.col = col;
         this.row = row;
+        this.demo = demo;
 
         setBackground(Color.white);
         setForeground(Color.black);
@@ -24,13 +26,13 @@ public class Node extends JButton implements ActionListener{
     public void setAsStart(){
         setBackground(Color.blue);
         setForeground(Color.white);
-        setText("Start");
+//        setText("START");
         start = true;
     }
     public void setAsGoal(){
         setBackground(Color.yellow);
         setForeground(Color.black);
-        setText("Goal");
+//        setText("GOAL");
         goal = true;
     }
     public void setAsSolid(){
@@ -52,6 +54,20 @@ public class Node extends JButton implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e){
-        setBackground(Color.orange);
+        setAsSolid();
+        demo.requestFocusInWindow();
+    }
+    public void reset() {
+        parent = null;
+        gCost = 0;
+        hCost = 0;
+        fCost = 0;
+        open = false;
+        checked = false;
+        if (!solid && !goal && !start) {
+            setBackground(Color.white);
+            setForeground(Color.black);
+            setText("");
+        }
     }
 }
